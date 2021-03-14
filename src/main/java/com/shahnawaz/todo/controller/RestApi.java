@@ -32,7 +32,7 @@ import com.shahnawaz.todo.repository.Userrepo;
 
 
 @RestController
-@CrossOrigin(origins = "https://nawaz1650/github.io")
+@CrossOrigin(origins = "https://nawaz1650/github.io/")
 public class RestApi {
 	@Autowired
 	private Userrepo userrepo;
