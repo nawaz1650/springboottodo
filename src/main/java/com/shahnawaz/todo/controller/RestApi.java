@@ -32,7 +32,7 @@ import com.shahnawaz.todo.repository.Userrepo;
 
 
 @RestController
-@CrossOrigin(origins = "https://nawaz1650/github.io/angulartodowithspring/")
+@CrossOrigin(origins = "https://nawaz1650/github.io/angulartodowithspring")
 public class RestApi {
 	@Autowired
 	private Userrepo userrepo;
@@ -75,7 +75,7 @@ public class RestApi {
 	}
 	
 	@PostMapping("/login")
-	@CrossOrigin(origins = "https://nawaz1650/github.io/angulartodowithspring/")
+	@CrossOrigin(origins = "https://nawaz1650/github.io/angulartodowithspring")
 	public Object login(@RequestBody Newuser user) {
 		User u=new User();
 		System.out.println(user);
@@ -90,7 +90,7 @@ public class RestApi {
 			
 		throw new LoginException("user doesnt exist or bad credentials");
 	}
-	@CrossOrigin(origins = "https://nawaz1650/github.io/angulartodowithspring/")
+	@CrossOrigin(origins = "https://nawaz1650/github.io/angulartodowithspring")
 	@GetMapping(value = "User/{id}/Todos")
 	public List<Todo> GetTodo(@PathVariable String id) {
 		
