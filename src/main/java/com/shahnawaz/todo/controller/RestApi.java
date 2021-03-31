@@ -54,8 +54,8 @@ import com.shahnawaz.todo.repository.Userrepo;
 
 
 @RestController
-//@CrossOrigin(origins = "https://nawaz1650.github.io")
-@CrossOrigin(origins = "http://localhost:4200",maxAge = 0L)
+@CrossOrigin(origins = "https://nawaz1650.github.io")
+//@CrossOrigin(origins = "http://localhost:4200",maxAge = 0L)
 						
 public class RestApi {
 	@Autowired
@@ -202,7 +202,7 @@ public class RestApi {
 		helper.setSubject(subject);
 		helper.setText(contentString);
 		try {
-		//javaMailSender.send(msg);
+		javaMailSender.send(msg);
 		}catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("exception occured in mail sending");
@@ -245,7 +245,7 @@ public class RestApi {
 	public Object signup(@RequestBody Newuser user) {
 		User u=userrepo.findByName(user.getUsername());
 		try {
-			Thread.sleep(3000l, 0);
+			//Thread.sleep(3000l, 0);
 			if(u==null) {
 				User user2=new User();
 				user2.setEmail(user.getEmail());
