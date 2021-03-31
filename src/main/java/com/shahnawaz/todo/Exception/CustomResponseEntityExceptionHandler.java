@@ -32,7 +32,7 @@ extends ResponseEntityExceptionHandler {
 	handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {
 		
 		ExceptionResponse er=new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
-		return new ResponseEntity(er, HttpStatus.NOT_FOUND);
+		return new ResponseEntity(er, HttpStatus.BAD_REQUEST);
 	}
 	
 	
