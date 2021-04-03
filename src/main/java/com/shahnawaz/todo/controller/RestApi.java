@@ -1,6 +1,9 @@
 package com.shahnawaz.todo.controller;
 
 
+import java.awt.PageAttributes.MediaType;
+import java.io.IOException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -8,16 +11,20 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 
 import com.shahnawaz.todo.requestbody.ForgotPasswordReq;
 import com.shahnawaz.todo.requestbody.Todoreq;
 import com.shahnawaz.todo.responsebody.ForgotPasswordResponse;
 import com.shahnawaz.todo.services.MyuserdetailService;
 
+
+
 //import jdk.jfr.internal.PrivateAccess;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,7 +32,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,6 +47,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.shahnawaz.todo.ExportTodos;
 import com.shahnawaz.todo.Exception.LoginException;
 import com.shahnawaz.todo.entities.JwtResponse;
 import com.shahnawaz.todo.entities.Todo;
@@ -76,6 +85,63 @@ public class RestApi {
 	
 	
 	
+	
+//	@GetMapping("/export/{userid}")
+//	public void export(@PathVariable String userid,HttpServletResponse response) throws IOException {
+//		System.out.println(response);
+//		System.out.println(userid);
+//		response.setContentType("application/octet-stream");
+//		String hedaerkey="Content-Disposition";
+//		String hedaerValue="attachement; filename=Todos.xlsx";
+//				response.setHeader(hedaerkey, hedaerValue);
+//				//List<Todo> todos=todorepo.
+//				Optional<User> user=userrepo.findById(Integer.parseInt(userid));
+//				List<Todo> todos;
+//				if(user.isPresent()) {
+//					todos=user.get().getTodos();
+//					System.out.println(todos);
+//					ExportTodos exportTodos=new ExportTodos(todos);
+//					exportTodos.export(response);
+//					
+//				}
+//				
+//		
+//		
+//		
+//	}
+//	
+	
+	
+	@GetMapping("/export/{userid}")
+	public void export(@PathVariable String userid,HttpServletResponse response) throws IOException {
+		System.out.println(response);
+		System.out.println(userid);
+		//response.setContentType("application/octet-stream");
+		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		String hedaerkey="Content-Disposition";
+		String hedaerValue="attachment;filename=Todos.xlsx";
+				response.setHeader(hedaerkey, hedaerValue);
+		//org.springframework.http.HttpHeaders headers=new org.springframework.http.HttpHeaders();
+		//headers.setContentType(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM);
+		//headers.add("Content-Disposition", "attachment ; filename=Todos.xlsx");
+		
+		
+				//List<Todo> todos=todorepo.
+				Optional<User> user=userrepo.findById(Integer.parseInt(userid));
+				List<Todo> todos;
+				if(user.isPresent()) {
+					todos=user.get().getTodos();
+					System.out.println(todos);
+					ExportTodos exportTodos=new ExportTodos(todos);
+					exportTodos.export(response);
+
+					
+				}
+				
+		return ;
+		
+		
+	}
 	
 	@PostMapping("/resetPassword")
 	public ForgotPasswordResponse resetPassword(@RequestBody ForgotPasswordReq fpr) {

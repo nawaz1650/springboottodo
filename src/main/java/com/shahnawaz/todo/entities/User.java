@@ -38,6 +38,7 @@ public class User {
 	
 	@JsonIgnore
 	@CreationTimestamp
+	@Column(nullable = false,updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date created_date;
 	
